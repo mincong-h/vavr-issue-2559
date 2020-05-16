@@ -1,0 +1,12 @@
+name: Actions
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: olafurpg/setup-scala@v7
+    - run: sbt test:compile
+    - run: sbt test:test
