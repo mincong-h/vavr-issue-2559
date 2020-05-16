@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger
 import org.scalatest.{FlatSpec, Matchers}
 
 import scala.collection.immutable.Queue
-import scala.collection.mutable
+import scala.collection.{StrictOptimizedIterableOps, mutable}
 
 class Issue2559Spec extends FlatSpec with Matchers {
 
@@ -13,6 +13,8 @@ class Issue2559Spec extends FlatSpec with Matchers {
     val count = new AtomicInteger(0)
 
     val values = Set(1, 2, 3)
+    values shouldBe a[StrictOptimizedIterableOps[Int, Set, Set[Int]]]
+
     val partition = values.partition(_ => {
       count.incrementAndGet()
       true
@@ -27,6 +29,8 @@ class Issue2559Spec extends FlatSpec with Matchers {
     val count = new AtomicInteger(0)
 
     val values = List(1, 2, 3)
+    values shouldBe a[StrictOptimizedIterableOps[Int, List, List[Int]]]
+
     val partition = values.partition(_ => {
       count.incrementAndGet()
       true
@@ -41,6 +45,8 @@ class Issue2559Spec extends FlatSpec with Matchers {
     val count = new AtomicInteger(0)
 
     val values = Seq(1, 2, 3)
+    values shouldBe a[StrictOptimizedIterableOps[Int, Seq, Seq[Int]]]
+
     val partition = values.partition(_ => {
       count.incrementAndGet()
       true
@@ -55,6 +61,9 @@ class Issue2559Spec extends FlatSpec with Matchers {
     val count = new AtomicInteger(0)
 
     val values = Array(1, 2, 3)
+    // FIXME Enable test
+    // values should not be a[StrictOptimizedIterableOps[_, _, _]]
+
     val partition = values.partition(_ => {
       count.incrementAndGet()
       true
@@ -69,6 +78,8 @@ class Issue2559Spec extends FlatSpec with Matchers {
     val count = new AtomicInteger(0)
 
     val values = Queue(1, 2, 3)
+    values shouldBe a[StrictOptimizedIterableOps[Int, Queue, Queue[Int]]]
+
     val partition = values.partition(_ => {
       count.incrementAndGet()
       true
@@ -83,6 +94,9 @@ class Issue2559Spec extends FlatSpec with Matchers {
     val count = new AtomicInteger(0)
 
     val values = Map[String, Int](("1", 1), ("2", 2), ("3", 3))
+    // FIXME Enable the test
+    // values shouldBe a[StrictOptimizedIterableOps[_, _, _]]
+
     val partition = values.partition(_ => {
       count.incrementAndGet()
       true
@@ -97,6 +111,8 @@ class Issue2559Spec extends FlatSpec with Matchers {
     val count = new AtomicInteger(0)
 
     val values = Vector(1, 2, 3)
+    values shouldBe a[StrictOptimizedIterableOps[Int, Vector, Vector[Int]]]
+
     val partition = values.partition(_ => {
       count.incrementAndGet()
       true
@@ -111,6 +127,8 @@ class Issue2559Spec extends FlatSpec with Matchers {
     val count = new AtomicInteger(0)
 
     val values = mutable.Stack(1, 2, 3)
+    values shouldBe a[StrictOptimizedIterableOps[Int, mutable.Stack, mutable.Stack[Int]]]
+
     val partition = values.partition(_ => {
       count.incrementAndGet()
       true
@@ -125,6 +143,9 @@ class Issue2559Spec extends FlatSpec with Matchers {
     val count = new AtomicInteger(0)
 
     val values = LazyList(1, 2, 3)
+    // FIXME Enable the test
+    // values should not be a[StrictOptimizedIterableOps[_, _, _]]
+
     val partition = values.partition(_ => {
       count.incrementAndGet()
       true
@@ -139,6 +160,9 @@ class Issue2559Spec extends FlatSpec with Matchers {
     val count = new AtomicInteger(0)
 
     val values = Stream(1, 2, 3)
+    // FIXME Enable the test
+    // values should not be a[StrictOptimizedIterableOps[_, _, _]]
+
     val partition = values.partition(_ => {
       count.incrementAndGet()
       true
