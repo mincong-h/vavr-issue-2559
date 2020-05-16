@@ -57,23 +57,6 @@ class Issue2559Spec extends FlatSpec with Matchers {
     count.get() shouldEqual 3
   }
 
-  "Array" should "partition in 1 iteration" in {
-    val count = new AtomicInteger(0)
-
-    val values = Array(1, 2, 3)
-    // FIXME Enable test
-    // values should not be a[StrictOptimizedIterableOps[_, _, _]]
-
-    val partition = values.partition(_ => {
-      count.incrementAndGet()
-      true
-    })
-
-    partition._1 shouldEqual Array(1, 2, 3)
-    partition._2 shouldEqual Array()
-    count.get() shouldEqual 3
-  }
-
   "Queue" should "partition in 1 iteration" in {
     val count = new AtomicInteger(0)
 
@@ -136,6 +119,23 @@ class Issue2559Spec extends FlatSpec with Matchers {
 
     partition._1 shouldEqual mutable.Stack(1, 2, 3)
     partition._2 shouldEqual mutable.Stack()
+    count.get() shouldEqual 3
+  }
+
+  "Array" should "partition in 1 iteration" in {
+    val count = new AtomicInteger(0)
+
+    val values = Array(1, 2, 3)
+    // FIXME Enable test
+    // values should not be a[StrictOptimizedIterableOps[_, _, _]]
+
+    val partition = values.partition(_ => {
+      count.incrementAndGet()
+      true
+    })
+
+    partition._1 shouldEqual Array(1, 2, 3)
+    partition._2 shouldEqual Array()
     count.get() shouldEqual 3
   }
 
